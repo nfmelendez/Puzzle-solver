@@ -10,6 +10,11 @@ public class PuzzleImpl implements Puzzle {
 	private char[][] matrix = { { 'x', 'b', 'e', 's' }, { 't', 'o', 'r', 'f' },
 			{ 't', 'a', 'n', 'x' }, { 'c', 't', 'o', 'm' },
 			{ 'b', 's', 'w', 'g' } };
+	
+//	private char[][] matrix = { 
+//			{ 'x', 'b', 'e', }, 
+//			{ 't', 'o', 'r' },
+//			{ 't', 'a', 'n'} };
 
 	private String[] words = { "boat", "tan", "won" };
 
@@ -44,8 +49,13 @@ public class PuzzleImpl implements Puzzle {
 
 	public String[][] solve() {
 		NodeImpl n = new NodeImpl('x', 0, 0);
-		createTree(n, 0, 0);
+		NodeImpl root = createTree(n, 0, 0);
+		System.out.println("exit");
 		return null;
+	}
+
+	public static void main(String[] args) {
+		new PuzzleImpl().solve();
 	}
 
 	// x. 0,0
@@ -64,11 +74,16 @@ public class PuzzleImpl implements Puzzle {
 	}
 
 	private void createChild(NodeImpl root, int row, int col) {
-		char letter = matrix[row][col];
-		NodeImpl n = new NodeImpl(letter, root, row, col);
-		if (root.addChild(n)) {
-			createTree(n, row, col);
+		//this is not a best practise!
+		try {
+			char letter = matrix[row][col];
+			NodeImpl n = new NodeImpl(letter, root, row, col);
+			if (root.addChild(n)) {
+				createTree(n, row, col);
+			}
+		} catch (java.lang.ArrayIndexOutOfBoundsException e) {
+			return;
 		}
-		
+
 	}
 }

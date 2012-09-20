@@ -22,21 +22,13 @@ public class NodeImpl {
 	public NodeImpl(char theValue, NodeImpl theFather, int row, int col) {
 		this(theValue, row, col);
 		this.father = theFather;
+		this.word = theFather.getWord() + theValue;
 	}
 
 	public String getWord() {
 		return word;
 	}
 
-	public boolean hasChild(char c) {
-		return false;
-	}
-
-	public NodeImpl getChild(char c) {
-		for (NodeImpl child : childs) {
-		}
-		return null;
-	}
 
 	public boolean addChild(NodeImpl c) {
 		if (!isFather(this.father, c)) {
@@ -69,6 +61,11 @@ public class NodeImpl {
 
 	public int getCol() {
 		return col;
+	}
+	
+	@Override
+	public String toString() {
+		return this.word ;
 	}
 
 }
