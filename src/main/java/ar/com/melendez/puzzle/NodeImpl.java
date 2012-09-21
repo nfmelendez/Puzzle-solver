@@ -7,6 +7,7 @@ public class NodeImpl {
 
 	char value;
 	String word = "";
+	private String path = "";
 	List<NodeImpl> childs = new ArrayList<NodeImpl>();
 	NodeImpl father = null;
 	private int row;
@@ -17,12 +18,14 @@ public class NodeImpl {
 		word += theValue;
 		this.row = theRow;
 		this.col = theCol;
+		this.path = " -> " + "[" + this.col +"," + this.row+ "]";
 	}
 
 	public NodeImpl(char theValue, NodeImpl theFather, int row, int col) {
 		this(theValue, row, col);
 		this.father = theFather;
 		this.word = theFather.getWord() + theValue;
+		this.path = theFather.getPath() + " -> " + "[" + this.col +"," + this.row+ "]";
 	}
 
 	public String getWord() {
@@ -66,6 +69,14 @@ public class NodeImpl {
 	@Override
 	public String toString() {
 		return this.word ;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 }
