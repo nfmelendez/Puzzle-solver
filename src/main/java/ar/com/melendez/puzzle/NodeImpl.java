@@ -78,5 +78,9 @@ public class NodeImpl {
 	public void setPath(String path) {
 		this.path = path;
 	}
+	
+	public List<NodeImpl> getChild(){
+		return childs;
+	}
 
 }

@@ -9,7 +9,7 @@ public class WordSolutions {
 	private String word;
 
 	public WordSolutions(String theWord) {
-		word = theWord;
+		setWord(theWord);
 	}
 
 	public List<NodeImpl> getSolutions() {
@@ -18,6 +18,14 @@ public class WordSolutions {
 
 	public void addSolution(NodeImpl solution) {
 		this.solutions.add(solution);
+	}
+
+	public String getWord() {
+		return word;
+	}
+
+	public void setWord(String word) {
+		this.word = word;
 	}
 
 }
