@@ -18,20 +18,20 @@ public class NodeImpl {
 		word += theValue;
 		this.row = theRow;
 		this.col = theCol;
-		this.path = " -> " + "[" + this.col +"," + this.row+ "]";
+		this.path = " -> " + "[" + this.row + "," + this.col + "]";
 	}
 
 	public NodeImpl(char theValue, NodeImpl theFather, int row, int col) {
 		this(theValue, row, col);
 		this.father = theFather;
 		this.word = theFather.getWord() + theValue;
-		this.path = theFather.getPath() + " -> " + "[" + this.col +"," + this.row+ "]";
+		this.path = theFather.getPath() + " -> " + "[" + this.row + ","
+				+ this.col + "]";
 	}
 
 	public String getWord() {
 		return word;
 	}
-
 
 	public boolean addChild(NodeImpl c) {
 		if (!isFather(this.father, c)) {
@@ -65,10 +65,10 @@ public class NodeImpl {
 	public int getCol() {
 		return col;
 	}
-	
+
 	@Override
 	public String toString() {
-		return this.word ;
+		return this.word;
 	}
 
 	public String getPath() {
@@ -78,8 +78,8 @@ public class NodeImpl {
 	public void setPath(String path) {
 		this.path = path;
 	}
-	
-	public List<NodeImpl> getChild(){
+
+	public List<NodeImpl> getChild() {
 		return childs;
 	}
 
