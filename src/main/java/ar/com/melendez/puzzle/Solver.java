@@ -1,11 +1,8 @@
-package ar.com.melendez.puzzle.impl;
+package ar.com.melendez.puzzle;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.com.melendez.puzzle.NodeImpl;
-import ar.com.melendez.puzzle.Puzzle;
-import ar.com.melendez.puzzle.WordSolutions;
 
 public class Solver {
 
@@ -14,6 +11,13 @@ public class Solver {
 	public Solver() {
 	}
 
+	/**
+	 * Solves the puzzle
+	 * 
+	 * @param p
+	 *            a Puzzle. cannot be null.
+	 * @return a list of solutions for a word.
+	 */
 	public List<WordSolutions> solve(Puzzle p) {
 		this.puzzle = p;
 		ArrayList<WordSolutions> solutions = new ArrayList<WordSolutions>();
@@ -23,15 +27,22 @@ public class Solver {
 		return solutions;
 	}
 
+	/**
+	 * Search a solution for a word. First find the first letter inside the
+	 * matrix for a given word and then create a tree of solutions.
+	 * 
+	 * @param solutions list to save solutions, cannot be null.
+	 * @param word Look solutions for this word. cannot be null.
+	 */
 	public void searchSolutionsForWord(ArrayList<WordSolutions> solutions,
-			String boat) {
-		WordSolutions wordSolutions = new WordSolutions(boat);
+			String word) {
+		WordSolutions wordSolutions = new WordSolutions(word);
 		for (int i = 0; i < this.puzzle.getRows(); i++) {
 			for (int j = 0; j < this.puzzle.getColumns(); j++) {
 				char c = this.puzzle.getLetter(i, j);
-				if (c == boat.charAt(0)) {
+				if (c == word.charAt(0)) {
 					NodeImpl n = new NodeImpl(c, i, j);
-					NodeImpl root = createTree(n, i, j, boat.substring(1));
+					NodeImpl root = createTree(n, i, j, word.substring(1));
 					wordSolutions.addSolution(root);
 				}
 			}
@@ -39,7 +50,9 @@ public class Solver {
 		solutions.add(wordSolutions);
 	}
 
-	// x. 0,0
+	/**
+	 * Creates a tree for neighbors
+	 */
 	private NodeImpl createTree(NodeImpl root, int row, int col, String search) {
 
 		createChild(root, row - 1, col - 1, search);
@@ -55,7 +68,6 @@ public class Solver {
 	}
 
 	private void createChild(NodeImpl root, int row, int col, String search) {
-		// this is not a best practise!
 		try {
 			char letter = puzzle.getLetter(row, col);
 			if (search.length() == 0 || search.charAt(0) != letter) {
@@ -66,6 +78,7 @@ public class Solver {
 				createTree(n, row, col, search.substring(1));
 			}
 		} catch (java.lang.ArrayIndexOutOfBoundsException e) {
+			// Fail silent, this is not a best practise!
 			return;
 		}
 

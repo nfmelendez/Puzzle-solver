@@ -3,13 +3,20 @@ package ar.com.melendez.puzzle;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This a solution node, very useful to represent logical path to the word
+ * inside the puzzle.
+ * 
+ * @author nfmelendez
+ * 
+ */
 public class NodeImpl {
 
-	char value;
-	String word = "";
+	private char value;
+	private String word = "";
 	private String path = "";
-	List<NodeImpl> childs = new ArrayList<NodeImpl>();
-	NodeImpl father = null;
+	private List<NodeImpl> childs = new ArrayList<NodeImpl>();
+	private NodeImpl father = null;
 	private int row;
 	private int col;
 
@@ -33,6 +40,11 @@ public class NodeImpl {
 		return word;
 	}
 
+	/**
+	 * Add a child. if it is a parent don't add because it is already in the path.
+	 * @param c a child. cannot be null.
+	 * @return true if could add a child.
+	 */
 	public boolean addChild(NodeImpl c) {
 		if (!isFather(this.father, c)) {
 			childs.add(c);
@@ -42,14 +54,24 @@ public class NodeImpl {
 		}
 	}
 
-	private boolean isFather(NodeImpl aFather, NodeImpl c) {
-		if (null == aFather) {
+	/**
+	 * To know if a node is parent, or grampa of a node.
+	 * 
+	 * @param posibleFather
+	 *            posible father, gramdfather and so on.
+	 * @param c
+	 *            child node.
+	 * @return true if aPosibleParent is a parent
+	 */
+	private boolean isFather(NodeImpl posibleFather, NodeImpl c) {
+		if (null == posibleFather) {
 			return false;
 		}
-		if (aFather.getRow() == c.getRow() && aFather.getCol() == c.getCol()) {
+		if (posibleFather.getRow() == c.getRow()
+				&& posibleFather.getCol() == c.getCol()) {
 			return true;
 		} else {
-			return isFather(aFather.getFather(), c);
+			return isFather(posibleFather.getFather(), c);
 		}
 
 	}

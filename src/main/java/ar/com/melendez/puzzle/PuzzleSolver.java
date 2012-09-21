@@ -3,15 +3,23 @@ package ar.com.melendez.puzzle;
 import java.util.List;
 
 import ar.com.melendez.puzzle.impl.PuzzleImpl;
-import ar.com.melendez.puzzle.impl.Solver;
 
 /**
- * Hello world!
+ * Small application that resolves puzzle
  * 
  */
-public class App {
+public class PuzzleSolver {
+
+	/** Puzzle sample. */
+	private static char[][] matrix = { { 'x', 'b', 'e', 's' }, { 't', 'o', 'r', 'f' },
+			{ 't', 'a', 'n', 'x' }, { 'c', 't', 'o', 'm' },
+			{ 'b', 's', 'w', 'g' } };
+
+	/** words that are inside the puzzle. */
+	private static String[] words = { "boat", "tan", "won" };
+
 	public static void main(String[] args) {
-		Puzzle p = new PuzzleImpl();
+		Puzzle p = new PuzzleImpl(matrix, words);
 		Solver solver = new Solver();
 		List<WordSolutions> solutions = solver.solve(p);
 
@@ -26,6 +34,15 @@ public class App {
 
 	}
 
+	/**
+	 * Print the solution tree.
+	 * 
+	 * @param node
+	 *            The node with the solution, if it has no child it is a leave.
+	 *            Cannot be null.
+	 * @param word
+	 *            The word that we are looking for solutions. Cannot be null.
+	 */
 	private static void printSolutions(NodeImpl node, String word) {
 		List<NodeImpl> child = node.getChild();
 		if (child.isEmpty()) {
